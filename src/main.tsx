@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { 
-  BrowserRouter,
-  UNSAFE_DataRouterContext,
-  UNSAFE_DataRouterStateContext,
-  UNSAFE_NavigationContext,
-  UNSAFE_LocationContext,
-  UNSAFE_RouteContext
+  BrowserRouter
 } from 'react-router-dom';
 import App from './App';
 import './styles/globals.css';
+import { ThemeProvider } from './hooks/useTheme';
 
 // Configure future flags for React Router v7
 const router = {
@@ -21,8 +17,10 @@ const router = {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter future={router.future}>
-      <App />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter future={router.future}>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );

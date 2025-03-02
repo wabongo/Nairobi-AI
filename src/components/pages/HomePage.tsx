@@ -103,7 +103,7 @@ const HomePage = () => {
                   {displayWord}<span className="animate-blink">|</span>
                 </span>
                 <br/>
-                <span className="text-4xl md:text-6xl">with <span className="text-primary drop-shadow-glow">AI</span></span>
+                <span className="text-4xl md:text-6xl">with <span className="text-primary drop-shadow-glow">Nairobi AI</span></span>
               </h1>
               
               <p 

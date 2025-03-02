@@ -1,141 +1,119 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import useMouseTilt from '../../hooks/useMouseTilt';
-
-interface Node {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-}
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useTheme } from '../../hooks/useTheme';
+import { cityData, City } from '../../data/cityData';
+import Globe from 'react-globe.gl';
+import { motion } from 'framer-motion';
 
 interface Connection {
-  source: number;
-  target: number;
-  active: boolean;
-  progress: number;
-  speed: number;
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+  color: string;
+  isHub: boolean;
 }
 
 const HeroAnimation: React.FC = () => {
-  const [nodes] = useState<Node[]>([
-    { id: 0, x: 85, y: 85, size: 0.8, color: 'rgba(0, 144, 255, 0.4)' },
-    { id: 1, x: 15, y: 75, size: 0.6, color: 'rgba(0, 144, 255, 0.2)' },
-    { id: 2, x: 75, y: 15, size: 0.6, color: 'rgba(0, 144, 255, 0.2)' },
-    { id: 3, x: 25, y: 25, size: 0.5, color: 'rgba(0, 144, 255, 0.15)' },
-    { id: 4, x: 65, y: 65, size: 0.5, color: 'rgba(0, 144, 255, 0.15)' },
-  ]);
-
-  const [connections, setConnections] = useState<Connection[]>(() => {
-    const conns: Connection[] = [];
-    for (let i = 1; i < nodes.length; i++) {
-      conns.push({
-        source: 0,
-        target: i,
-        active: true,
-        progress: Math.random(),
-        speed: 0.2 + Math.random() * 0.3,
-      });
-    }
-    return conns;
-  });
-
+  const { theme } = useTheme();
+  const isDarkTheme = theme === 'dark';
+  const globeRef = useRef<any>();
   const containerRef = useRef<HTMLDivElement>(null);
-  const tilt = useMouseTilt(containerRef);
 
+  // Theme-based colors
+  const markerFillMain = isDarkTheme 
+    ? "rgba(0, 200, 255, 0.9)" 
+    : "rgba(2, 132, 199, 0.9)";
+  
+  const markerFillSecondary = isDarkTheme 
+    ? "rgba(0, 144, 255, 0.8)" 
+    : "rgba(56, 189, 248, 0.8)";
+  
+  const connectionLineColor = isDarkTheme 
+    ? "rgba(0, 144, 255, 0.6)" 
+    : "rgba(14, 165, 233, 0.6)";
+  
+  const bgColor = isDarkTheme 
+    ? "#020617" 
+    : "#f0f9ff";
+
+  // Generate connections between cities
+  const arcsData = useMemo(() => {
+    const connections: Connection[] = [];
+    
+    // Connect all cities to each other (create a network)
+    for (let i = 0; i < cityData.length; i++) {
+      for (let j = i + 1; j < cityData.length; j++) {
+        // Determine if this is a Nairobi connection
+        const isNairobiConnection = cityData[i].isHub || cityData[j].isHub;
+        
+        connections.push({
+          startLat: cityData[i].lat,
+          startLng: cityData[i].lng,
+          endLat: cityData[j].lat,
+          endLng: cityData[j].lng,
+          color: isNairobiConnection ? markerFillMain : connectionLineColor,
+          isHub: isNairobiConnection
+        });
+      }
+    }
+    
+    return connections;
+  }, [markerFillMain, connectionLineColor]);
+
+  // Auto-rotate the globe
   useEffect(() => {
-    const interval = setInterval(() => {
-      setConnections((prev) =>
-        prev.map((conn) => ({
-          ...conn,
-          progress: (conn.progress + 0.01 * conn.speed) % 1,
-          active: Math.random() > 0.1,
-        }))
-      );
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getPath = useCallback((source: Node, target: Node, progress: number) => {
-    const midX = (source.x + target.x) / 2;
-    const midY = (source.y + target.y) / 2;
-    const curvature = 20;
-    const controlX = midX;
-    const controlY = midY - curvature;
-
-    const path = `M${source.x},${source.y} Q${controlX},${controlY} ${target.x},${target.y}`;
-    const t = progress;
-    const x = (1 - t) * (1 - t) * source.x + 2 * (1 - t) * t * controlX + t * t * target.x;
-    const y = (1 - t) * (1 - t) * source.y + 2 * (1 - t) * t * controlY + t * t * target.y;
-
-    return { path, point: { x, y } };
+    if (globeRef.current) {
+      globeRef.current.controls().autoRotate = true;
+      globeRef.current.controls().autoRotateSpeed = 0.5;
+      
+      // Set initial position to focus on Africa
+      globeRef.current.pointOfView({ lat: 5, lng: 20, altitude: 2.5 }, 1000);
+    }
   }, []);
 
   return (
-    <div
+    <motion.div 
       ref={containerRef}
-      className="absolute inset-0 w-full h-full overflow-hidden"
-      style={{
-        transform: `perspective(1000px) rotateX(${tilt.rotateX * 0.2}deg) rotateY(${tilt.rotateY * 0.2}deg)`,
-        transition: 'transform 0.5s ease-out',
-      }}
+      className="relative w-full h-[600px] overflow-hidden rounded-xl"
+      style={{ background: bgColor }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
     >
-      <svg viewBox="0 0 100 100" className="w-full h-full opacity-50">
-        {/* Subtle background stars */}
-        {Array.from({ length: 50 }).map((_, i) => (
-          <circle
-            key={`star-${i}`}
-            cx={Math.random() * 100}
-            cy={Math.random() * 100}
-            r={0.15 + Math.random() * 0.2}
-            fill="rgba(255, 255, 255, 0.3)"
-            style={{
-              animation: `twinkle ${2 + Math.random() * 2}s infinite alternate`,
-            }}
-          />
-        ))}
-
-        {/* Network connections */}
-        {connections.map((conn, idx) => {
-          if (!conn.active) return null;
-          const source = nodes.find((n) => n.id === conn.source);
-          const target = nodes.find((n) => n.id === conn.target);
-          if (!source || !target) return null;
-
-          const { path, point } = getPath(source, target, conn.progress);
-
-          return (
-            <g key={`conn-${idx}`} className="opacity-30">
-              <path
-                d={path}
-                stroke="rgba(0, 144, 255, 0.2)"
-                strokeWidth="0.5"
-                fill="none"
-              />
-              <circle
-                cx={point.x}
-                cy={point.y}
-                r="0.3"
-                fill="rgba(0, 144, 255, 0.4)"
-              />
-            </g>
-          );
-        })}
-
-        {/* Network nodes */}
-        {nodes.map((node) => (
-          <circle
-            key={`node-${node.id}`}
-            cx={node.x}
-            cy={node.y}
-            r={node.size}
-            fill={node.color}
-            className="animate-pulse-slow"
-          />
-        ))}
-      </svg>
-    </div>
+      <Globe
+        ref={globeRef}
+        width={containerRef.current?.offsetWidth || 800}
+        height={containerRef.current?.offsetHeight || 600}
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+        backgroundColor={bgColor}
+        atmosphereColor={isDarkTheme ? "rgba(0, 144, 255, 0.4)" : "rgba(14, 165, 233, 0.3)"}
+        atmosphereAltitude={0.15}
+        
+        // City markers
+        pointsData={cityData}
+        pointLat="lat"
+        pointLng="lng"
+        pointColor={d => (d as City).isHub ? markerFillMain : markerFillSecondary}
+        pointAltitude={0.02}
+        pointRadius={d => (d as City).isHub ? 0.5 : 0.3}
+        pointLabel={d => (d as City).name}
+        pointsMerge={true}
+        
+        // Connections between cities
+        arcsData={arcsData}
+        arcStartLat="startLat"
+        arcStartLng="startLng"
+        arcEndLat="endLat"
+        arcEndLng="endLng"
+        arcColor="color"
+        arcDashLength={d => (d as Connection).isHub ? 0.8 : 0.4}
+        arcDashGap={d => (d as Connection).isHub ? 0.4 : 0.2}
+        arcDashAnimateTime={d => (d as Connection).isHub ? 4000 : 6000}
+        arcStroke={d => (d as Connection).isHub ? 0.5 : 0.3}
+        arcsTransitionDuration={1000}
+      />
+    </motion.div>
   );
 };
 

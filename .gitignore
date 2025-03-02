@@ -63,6 +63,9 @@ lerna-debug.log*
 .temp
 .docusaurus
 
+# Project specific
+/prompts
+
 # Misc
 .DS_Store
 Thumbs.db
