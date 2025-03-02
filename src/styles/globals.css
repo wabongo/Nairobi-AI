@@ -1,0 +1,405 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%; /* Changed to black */
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%; /* Darker card background */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217.2 32.6% 10%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 10%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 10%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 10%;
+    --input: 217.2 32.6% 10%;
+    --ring: 199 89% 48%;
+    
+    --radius: 0.5rem;
+    
+    --space-unit: 1rem;
+    --space-3xs: calc(var(--space-unit) * 0.25);
+    --space-2xs: calc(var(--space-unit) * 0.375);
+    --space-xs: calc(var(--space-unit) * 0.5);
+    --space-sm: calc(var(--space-unit) * 0.75);
+    --space-md: calc(var(--space-unit) * 1.25);
+    --space-lg: calc(var(--space-unit) * 2);
+    --space-xl: calc(var(--space-unit) * 3.25);
+    --space-2xl: calc(var(--space-unit) * 5);
+    --space-3xl: calc(var(--space-unit) * 8);
+
+    /* Light mode colors */
+    --light-bg-primary: #ffffff;
+    --light-bg-secondary: #f0f9ff;
+    --light-text-primary: #0c4a6e;
+    --light-text-secondary: #0369a1;
+    --light-accent-primary: #0284c7;
+    --light-accent-secondary: #38bdf8;
+    --light-border-primary: rgba(14, 165, 233, 0.2);
+    --light-border-secondary: rgba(56, 189, 248, 0.1);
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* Pure black */
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 10%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 10%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 10%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 10%;
+    --input: 217.2 32.6% 10%;
+    --ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: black; /* Enforce black background */
+    color: white; /* Ensure text is white */
+  }
+}
+
+/* Force dark mode */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth; /* Add smooth scrolling */
+}
+
+html:not(.dark) {
+  --bg-primary: var(--light-bg-primary);
+  --bg-secondary: var(--light-bg-secondary);
+  --text-primary: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --accent-primary: var(--light-accent-primary);
+  --accent-secondary: var(--light-accent-secondary);
+  --border-primary: var(--light-border-primary);
+  --border-secondary: var(--light-border-secondary);
+  
+  color-scheme: light;
+}
+
+/* Section transitions */
+section {
+  position: relative;
+  overflow: hidden;
+  background-color: black; /* Ensure all sections have black background */
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, rgba(0, 144, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Custom button style inspired by Uiverse.io */
+.button-glow {
+  --bg: #000;
+  --hover-bg: rgb(0, 144, 255);
+  --hover-text: #000;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 0.8em 2em;
+  background: var(--bg);
+  transition: 0.2s;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.button-glow:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button-glow:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+
+/* Enhanced Hero Section Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(15px);
+  }
+  75% {
+    transform: translateY(10px) translateX(-5px);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  80% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-hover {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 144, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(0, 144, 255, 0.4);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+.animate-blink {
+  animation: blink 0.8s infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 4s ease infinite;
+}
+
+.animate-gradient-x {
+  background-size: 200% 100%;
+  animation: gradient-x 2s ease infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 25s linear infinite;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2.5s ease-in-out infinite;
+}
+
+.animate-appear {
+  animation: appear 0.6s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 5s ease-in-out infinite;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(0, 144, 255, 0.4);
+}
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 8px rgba(0, 144, 255, 0.5));
+}
+
+/* Card hover effects */
+.hover-card-glow:hover {
+  animation: card-hover 0.3s forwards;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+/* Custom Hero Background */
+.bg-hero {
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('/images/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Dark mesh background for sections */
+.bg-mesh {
+  background-color: #000000;
+  background-image: radial-gradient(rgba(0, 144, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Ensure dark theme is enforced */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    background-color: black;
+    color: white;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 144, 255, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 144, 255, 0.8);
+}
+
+@layer utilities {
+  .responsive-container {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+  }
+
+  @media (min-width: 640px) {
+    .responsive-container {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .responsive-container {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .responsive-container {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .responsive-container {
+      max-width: 1280px;
+    }
+  }
+}
