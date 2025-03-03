@@ -190,49 +190,60 @@ const HomePage = () => {
             Learn from and connect with leading AI practitioners in our community.
           </p>
         </div>
-        
+
         <div className="flex flex-wrap justify-center gap-8">
-          {/* Member Card 1 */}
-          <div className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-primary/30 via-primary/20 to-primary before:absolute before:top-0 w-80 h-72 relative bg-card flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
-            <div className="w-28 h-28 bg-primary mt-8 rounded-full border-4 border-card z-10 group-hover:scale-150 group-hover:-translate-x-24 group-hover:-translate-y-20 transition-all duration-500 overflow-hidden">
-              <img src="https://randomuser.me/api/portraits/men/83.jpg" alt="Dr. Amina" className="w-full h-full object-cover" />
+          {/* Member Cards */}
+          {[
+            {
+              name: "Arthur Adinda",
+              role: "Community Manager",
+              imgSrc: "src/assets/Arthur_PassportPhoto.jpg",
+              linkedIn: "https://www.linkedin.com/in/arthur-adinda-3a1266120/"
+            },
+            {
+              name: "Willie Macharia",
+              role: "Community Organiser",
+              imgSrc: "src/assets/Screenshot 2024-11-27 164150.png",
+              linkedIn: "https://www.linkedin.com/in/willie-ng-ang-a-macharia-121518102/"
+            },
+            {
+              name: "Betty Kamande",
+              role: "Co-organiser",
+              imgSrc: "src/assets/Screenshot 2025-03-03 164713.png",
+              linkedIn: "https://www.linkedin.com/in/bettykamande/"
+            },
+            {
+              name: "Dancan Angwenyi",
+              role: "Strategy",
+              imgSrc: "src/assets/Screenshot 2025-03-03 171342.png",
+              linkedIn: "https://www.linkedin.com/in/dancan-angwenyi-687752101/"
+            },
+            {
+              name: "Grace Ngari",
+              role: "Community Manager",
+              imgSrc: "src/assets/Screenshot 2025-03-03 171702.png",
+              linkedIn: "https://www.linkedin.com/in/grace-ngari-2b8a01245/"
+            }
+          ].map((member, index) => (
+            <div
+              key={index}
+              className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-primary/30 via-primary/20 to-primary before:absolute before:top-0 w-80 h-72 relative bg-card flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden"
+            >
+              <div className="w-28 h-28 bg-primary mt-8 rounded-full border-4 border-card z-10 group-hover:scale-150 group-hover:-translate-x-24 group-hover:-translate-y-20 transition-all duration-500 overflow-hidden">
+                <img src={member.imgSrc} alt={member.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="z-10 group-hover:-translate-y-10 transition-all duration-500">
+                <span className="text-2xl font-semibold block text-foreground">{member.name}</span>
+                <p className="text-muted-foreground">{member.role}</p>
+              </div>
+              <Link
+                to={member.linkedIn}
+                className="bg-primary px-4 py-1 text-primary-foreground rounded-md z-10 hover:scale-125 transition-all duration-500 hover:bg-primary/90"
+              >
+                Connect
+              </Link>
             </div>
-            <div className="z-10 group-hover:-translate-y-10 transition-all duration-500">
-              <span className="text-2xl font-semibold block text-foreground">Arthur Adinda</span>
-              <p className="text-muted-foreground">Community Manager</p>
-            </div>
-            <Link to="/members/amina" className="bg-primary px-4 py-1 text-primary-foreground rounded-md z-10 hover:scale-125 transition-all duration-500 hover:bg-primary/90">
-              Connect
-            </Link>
-          </div>
-
-          {/* Member Card 2 */}
-          <div className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-primary/30 via-primary/20 to-primary before:absolute before:top-0 w-80 h-72 relative bg-card flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
-            <div className="w-28 h-28 bg-primary mt-8 rounded-full border-4 border-card z-10 group-hover:scale-150 group-hover:-translate-x-24 group-hover:-translate-y-20 transition-all duration-500 overflow-hidden">
-              <img src="https://randomuser.me/api/portraits/men/83.jpg" alt="James" className="w-full h-full object-cover" />
-            </div>
-            <div className="z-10 group-hover:-translate-y-10 transition-all duration-500">
-              <span className="text-2xl font-semibold block text-foreground">Willy Macharia</span>
-              <p className="text-muted-foreground">Community Organiser</p>
-            </div>
-            <Link to="/members/james" className="bg-primary px-4 py-1 text-primary-foreground rounded-md z-10 hover:scale-125 transition-all duration-500 hover:bg-primary/90">
-              Connect
-            </Link>
-          </div>
-
-          {/* Member Card 3 */}
-          <div className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-primary/30 via-primary/20 to-primary before:absolute before:top-0 w-80 h-72 relative bg-card flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
-            <div className="w-28 h-28 bg-primary mt-8 rounded-full border-4 border-card z-10 group-hover:scale-150 group-hover:-translate-x-24 group-hover:-translate-y-20 transition-all duration-500 overflow-hidden">
-              <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Sarah" className="w-full h-full object-cover" />
-            </div>
-            <div className="z-10 group-hover:-translate-y-10 transition-all duration-500">
-              <span className="text-2xl font-semibold block text-foreground">Betty Kamande</span>
-              <p className="text-muted-foreground">Co-organiser</p>
-            </div>
-            <Link to="/members/sarah" className="bg-primary px-4 py-1 text-primary-foreground rounded-md z-10 hover:scale-125 transition-all duration-500 hover:bg-primary/90">
-              Connect
-            </Link>
-          </div>
+          ))}
         </div>
       </section>
 
