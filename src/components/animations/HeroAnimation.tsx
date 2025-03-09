@@ -65,7 +65,7 @@ const HeroAnimation: React.FC = () => {
     >
       <Globe
         ref={globeRef}
-        width={600} // Static size (adjust as needed)
+        width={600}
         height={600}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         backgroundColor="rgba(0, 0, 0, 0)"
