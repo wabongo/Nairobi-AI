@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import RootLayout from './components/layouts/RootLayout';
-import HomePage from './components/pages/HomePage';
-import EventsPage from './components/pages/EventsPage';
-import ResourcesPage from './components/pages/ResourcesPage';
-import ProjectsPage from './components/pages/ProjectsPage';
-import ForumsPage from './components/pages/ForumsPage';
-import JobsPage from './components/pages/JobsPage';
-import ProfilePage from './components/pages/ProfilePage';
-import NotFoundPage from './components/pages/NotFoundPage';
+import HomePage from './pages/HomePage';
+import EventsPage from './pages/EventsPage';
+import ResourcesPage from './pages/ResourcesPage';
+import ProjectsPage from './pages/ProjectsPage';
+import ForumsPage from './pages/ForumsPage';
+import JobsPage from './pages/JobsPage';
+import ProfilePage from './pages/ProfilePage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (

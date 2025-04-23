@@ -12,14 +12,12 @@ const RootLayout = () => {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,60,100,0.1),transparent_70%)] pointer-events-none"></div>
+    <div className="min-h-screen flex flex-col bg-white text-gray-800">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)] pointer-events-none"></div>
       
       <Header />
       
       <main className="flex-grow relative">
-        {/* Subtle animated gradient line under header */}
-        <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#0066cc]/50 to-transparent opacity-50"></div>
         
         {/* Main content with subtle fade-in animation */}
         <div 
