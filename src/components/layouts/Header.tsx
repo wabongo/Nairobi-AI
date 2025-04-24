@@ -75,29 +75,20 @@ const Header = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex items-center space-x-4"
         >
-          <div className="relative overflow-hidden rounded-full">
-            <motion.img
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              src={logoImage}
-              alt="Nairobi AI Logo"
-              className="h-10 w-10 rounded-full"
-            />
-          </div>
-          <div className="text-xl font-bold tracking-tight flex flex-row items-center">
+
+
+          <div className="font-extrabold lowercase text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-900 via-purple-700 to-red-700 font-bold tracking-tight flex flex-row items-center rounded-full px-2 py-0.5 border border-gradient-to-r from-blue-900 via-purple-700 to-red-700">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className={`${scrolled ? 'text-gray-800' : 'text-gray-800'}`}
             >
-              Nairobi
+              Nairobi.
             </motion.span>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className={`${scrolled ? 'text-blue-600' : 'text-blue-500'} ml-1`}
             >
               AI
             </motion.span>
@@ -117,7 +108,7 @@ const Header = () => {
           >
             <Link
               to="/profile"
-              className="group relative overflow-hidden text-base px-8 py-4 rounded-full font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all duration-300"
+              className="group relative overflow-hidden text-base px-8 py-4 rounded-full font-medium bg-black hover:bg-black/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
             >
               Sign In
             </Link>

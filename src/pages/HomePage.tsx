@@ -3,9 +3,11 @@ import { useState } from 'react';
 // Import segmented components
 import Hero from '../components/layouts/home/Hero';
 import Statistics from '../components/layouts/home/Statistics';
+import Community from '../components/layouts/home/Community';
 import CommunitySpotlight from '../components/layouts/home/CommunitySpotlight';
 import CallToAction from '../components/layouts/home/CallToAction';
 import Partners from '../components/layouts/home/Partners';
+import SmoothScrollSection from '../components/layouts/home/SmoothScrollSection';
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -22,29 +24,34 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div id="hero">
+      <SmoothScrollSection id="hero">
         <Hero onSectionChange={handleSectionChange} />
-      </div>
-      
+      </SmoothScrollSection>
+
+      {/* Community Section (inserted after Hero) */}
+      <SmoothScrollSection id="community-main">
+        <Community />
+      </SmoothScrollSection>
+
       {/* Statistics Section */}
-      <div id="statistics">
+      <SmoothScrollSection id="statistics">
         <Statistics onSectionChange={handleSectionChange} />
-      </div>
-      
+      </SmoothScrollSection>
+
       {/* Community Spotlight Section */}
-      <div id="community">
+      <SmoothScrollSection id="community">
         <CommunitySpotlight onSectionChange={handleSectionChange} />
-      </div>
-      
+      </SmoothScrollSection>
+
       {/* Call to Action Section */}
-      <div id="cta">
+      <SmoothScrollSection id="cta">
         <CallToAction onSectionChange={handleSectionChange} />
-      </div>
-      
+      </SmoothScrollSection>
+
       {/* Partners Section */}
-      <div id="partners">
+      <SmoothScrollSection id="partners">
         <Partners onSectionChange={handleSectionChange} />
-      </div>
+      </SmoothScrollSection>
     </div>
   );
 };
