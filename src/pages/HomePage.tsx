@@ -39,9 +39,9 @@ const HomePage = () => {
       </SmoothScrollSection>
 
       {/* Community Spotlight Section */}
-      <SmoothScrollSection id="community">
+      {/* <SmoothScrollSection id="community">
         <CommunitySpotlight onSectionChange={handleSectionChange} />
-      </SmoothScrollSection>
+      </SmoothScrollSection> */}
 
       {/* Call to Action Section */}
       <SmoothScrollSection id="cta">
