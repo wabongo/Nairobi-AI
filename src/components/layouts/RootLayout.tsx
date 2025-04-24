@@ -12,7 +12,7 @@ const RootLayout = () => {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-800">
+    <div className="min-h-screen flex flex-col bg-white text-gray-800 pt-0 m-0">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)] pointer-events-none"></div>
       
       <Header />

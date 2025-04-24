@@ -264,7 +264,7 @@ const NavLink = ({ to, className, children, scrolled = false }: NavLinkProps) =>
       className={cn(
         "font-medium transition-all duration-300 relative group py-2",
         scrolled ? "text-black hover:text-blue-600" : pageTheme === 'dark' ? "text-white hover:text-blue-300" : "text-black hover:text-blue-500",
-        isActive && "hover:bg-blue-500 hover:text-gray-800 bg-blue-500 px-2 py-1 rounded-full transition-all duration-300 ease-in-out",
+        isActive && "text-white bg-gradient-to-r from-blue-900 to-purple-700 px-2 py-1 rounded-full transition-all duration-300 ease-in-out hover:text-gray-300",
         className
       )}
     >

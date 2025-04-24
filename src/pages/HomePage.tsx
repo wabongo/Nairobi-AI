@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Hero from '../components/layouts/home/Hero';
 import Statistics from '../components/layouts/home/Statistics';
 import Hatch from '../components/layouts/home/Hatch';
-import CommunitySpotlight from '../components/layouts/home/CommunitySpotlight';
 import CallToAction from '../components/layouts/home/CallToAction';
 import Partners from '../components/layouts/home/Partners';
 import SmoothScrollSection from '../components/layouts/home/SmoothScrollSection';
@@ -22,7 +21,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-0">
       {/* Hero Section */}
       <SmoothScrollSection id="hero">
         <Hero onSectionChange={handleSectionChange} />
@@ -33,19 +32,16 @@ const HomePage = () => {
         <Hatch />
       </SmoothScrollSection>
 
-      {/* Statistics Section */}
-      <SmoothScrollSection id="statistics">
-        <Statistics onSectionChange={handleSectionChange} />
-      </SmoothScrollSection>
-
-      {/* Community Spotlight Section */}
-      {/* <SmoothScrollSection id="community">
-        <CommunitySpotlight onSectionChange={handleSectionChange} />
-      </SmoothScrollSection> */}
-
       {/* Call to Action Section */}
       <SmoothScrollSection id="cta">
         <CallToAction onSectionChange={handleSectionChange} />
+      </SmoothScrollSection>
+
+      {/* Statistics Section */}
+      <SmoothScrollSection id="statistics">
+        <Statistics 
+        // onSectionChange={handleSectionChange}
+         />
       </SmoothScrollSection>
 
       {/* Partners Section */}

@@ -19,7 +19,7 @@ const Hero = ({ onSectionChange }: HeroProps) => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden bg-amber-500"
     >
       {/* Motion gradient background */}
       <GradientBackground
@@ -30,7 +30,7 @@ const Hero = ({ onSectionChange }: HeroProps) => {
       {/* Optional subtle overlay */}
       <div className="absolute inset-0 bg-white/30 backdrop-blur-sm z-0 pointer-events-none" />
 
-      <div className=" relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-24">
+      <div className=" relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8 pt-0 md:py-24">
         <div className="min-w-screen p-0 m-0">
           {/* Badge */}
           <div
