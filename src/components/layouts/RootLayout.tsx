@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import ScrollToTop from '../ScrollToTop';
 
 const RootLayout = () => {
   const [mounted, setMounted] = useState(false);
@@ -16,6 +17,8 @@ const RootLayout = () => {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)] pointer-events-none"></div>
       
       <Header />
+
+      <ScrollToTop/>
       
       <main className="flex-grow relative">
         
