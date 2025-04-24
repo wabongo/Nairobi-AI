@@ -3,7 +3,7 @@ import { useState } from 'react';
 // Import segmented components
 import Hero from '../components/layouts/home/Hero';
 import Statistics from '../components/layouts/home/Statistics';
-import Community from '../components/layouts/home/Community';
+import Hatch from '../components/layouts/home/Hatch';
 import CommunitySpotlight from '../components/layouts/home/CommunitySpotlight';
 import CallToAction from '../components/layouts/home/CallToAction';
 import Partners from '../components/layouts/home/Partners';
@@ -30,7 +30,7 @@ const HomePage = () => {
 
       {/* Community Section (inserted after Hero) */}
       <SmoothScrollSection id="community-main">
-        <Community />
+        <Hatch />
       </SmoothScrollSection>
 
       {/* Statistics Section */}

@@ -7,6 +7,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import ForumsPage from './pages/ForumsPage';
 import JobsPage from './pages/JobsPage';
 import ProfilePage from './pages/ProfilePage';
+import AboutPage from './pages/About';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="events" element={<EventsPage />} />
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="projects" element={<ProjectsPage />} />
+        <Route path="about" element={<AboutPage />} />
         <Route path="forums" element={<ForumsPage />} />
         <Route path="jobs" element={<JobsPage />} />
         <Route path="profile" element={<ProfilePage />} />

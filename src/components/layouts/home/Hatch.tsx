@@ -10,7 +10,7 @@ const Community = () => {
         <img
           src="https://images.pexels.com/photos/4045699/pexels-photo-4045699.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="hatching community"
-          className="w-72 h-96 md:w-80 md:h-full transition-transform duration-300 ease-out hover:scale-110 rounded-xl"
+          className="w-72 h-96 md:w-80 md:h-full transition-transform duration-300 ease-out hover:scale-110 rounded-2xl"
           loading="eager"
         />
       </div>
@@ -21,7 +21,7 @@ const Community = () => {
           A Hatching Group
         </h2>
         <p className="text-lg md:text-xl mb-6 font-light">
-          We are a thriving and vibrant community offering a platform where curious minds crack open, connections take flight, and AI-driven ingenuity shapes tomorrow. Ready to join the nest?
+          We are a thriving and vibrant community offering a platform where curious minds crack open, connections take flight, and AI-driven ingenuity shapes tomorrow. Join the nest!
         </p>
         <Link
           to="/about"

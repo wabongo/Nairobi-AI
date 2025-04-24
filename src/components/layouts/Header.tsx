@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
   X,
@@ -14,6 +14,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../lib/utils";
 import logoImage from "../../assets/NairobiAI_Logo_HighRes.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setCurrentPage, setPageTheme, PageTheme } from '../../store/navigationSlice';
 
 interface NavLinkProps {
   to: string;
@@ -35,12 +38,16 @@ interface NavItem {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { currentPage, pageTheme } = useSelector((state: RootState) => state.navigation);
 
   const navItems: NavItem[] = [
-    { to: "/", label: "Home", icon: <Home className="h-5 w-5 mr-3" /> },
+    // { to: "/", label: "Home", icon: <Home className="h-5 w-5 mr-3" /> },
     { to: "/events", label: "Events", icon: <Calendar className="h-5 w-5 mr-3" /> },
     { to: "/resources", label: "Resources", icon: <BookOpen className="h-5 w-5 mr-3" /> },
     { to: "/projects", label: "Projects", icon: <FolderGit2 className="h-5 w-5 mr-3" /> },
+    { to: "/about", label: "About", icon: <BookOpen className="h-5 w-5 mr-3" /> },
     { to: "/forums", label: "Forums", icon: <MessageSquare className="h-5 w-5 mr-3" /> },
     { to: "/jobs", label: "Jobs", icon: <Briefcase className="h-5 w-5 mr-3" /> },
   ];
@@ -55,6 +62,20 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Update Redux state when location changes
+  useEffect(() => {
+    dispatch(setCurrentPage(location.pathname));
+    
+    // Set page theme based on current page
+    if (location.pathname === '/about') {
+      dispatch(setPageTheme('dark'));
+    } else if (location.pathname === '/') {
+      dispatch(setPageTheme('transparent'));
+    } else {
+      dispatch(setPageTheme('light'));
+    }
+  }, [location, dispatch]);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
@@ -63,9 +84,10 @@ const Header = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
-        "fixed top-4 left-0 right-0 mx-auto max-w-[95%] md:max-w-[90%] z-50 transition-all duration-300 rounded-xl",
+        "fixed top-4 left-0 right-0 mx-auto max-w-[95%] md:max-w-[90%] z-50 transition-all duration-300 rounded-full",
         scrolled ? "py-3 backdrop-blur-md bg-white/20 shadow-lg" : "py-4 bg-white/10 backdrop-blur-[10px]",
-        "text-gray-800"
+        pageTheme === 'dark' ? "text-white" : "text-gray-800",
+        pageTheme === 'dark' && !scrolled && "bg-black/20"
       )}
     >
       <div className="px-6 flex items-center justify-between">
@@ -77,7 +99,15 @@ const Header = () => {
         >
 
 
-          <div className="font-extrabold lowercase text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-900 via-purple-700 to-red-700 font-bold tracking-tight flex flex-row items-center rounded-full px-2 py-0.5 border border-gradient-to-r from-blue-900 via-purple-700 to-red-700">
+          <Link to="/" className={cn(
+            "font-extrabold lowercase text-lg font-bold tracking-tight flex flex-row items-center rounded-full px-2 py-0.5 border",
+            // Apply different styles based on page theme
+            pageTheme === 'dark' ? 
+              "bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-400 to-pink-400 border-white/30" : 
+              "bg-clip-text text-transparent bg-gradient-to-r from-blue-900 via-purple-700 to-red-700 border-gradient-to-r from-blue-900 via-purple-700 to-red-700",
+            // Add white glow effect on dark backgrounds
+            pageTheme === 'dark' && "border"
+          )}>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -92,12 +122,17 @@ const Header = () => {
             >
               AI
             </motion.span>
-          </div>
+          </Link>
         </motion.div>
 
         <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} scrolled={scrolled}>
+            <NavLink 
+              key={item.to} 
+              to={item.to} 
+              scrolled={scrolled}
+              className={currentPage === item.to ? 'active' : ''}
+            >
               {item.label}
             </NavLink>
           ))}
@@ -163,13 +198,6 @@ const Header = () => {
                     transition={{ delay: 0.1 }}
                     className="flex items-center space-x-3"
                   >
-                    <div className="relative overflow-hidden rounded-full">
-                      <img
-                        src={logoImage}
-                        alt="Nairobi AI Logo"
-                        className="h-8 w-8 rounded-full"
-                      />
-                    </div>
                     <span className="text-lg font-bold">
                       <span className="text-gray-800">Nairobi</span>
                       <span className="text-blue-500 ml-1">AI</span>
@@ -208,7 +236,7 @@ const Header = () => {
                   className="mt-auto pt-6"
                 >
                   <Link
-                    to="/profile"
+                    to="/login"
                     className="button-primary w-full flex items-center justify-center gap-2"
                     onClick={toggleMenu}
                   >
@@ -227,19 +255,25 @@ const Header = () => {
 
 // Enhanced desktop navigation link with animated underline effect
 const NavLink = ({ to, className, children, scrolled = false }: NavLinkProps) => {
+  const { currentPage, pageTheme } = useSelector((state: RootState) => state.navigation);
+  const isActive = currentPage === to;
+  
   return (
     <Link
       to={to}
       className={cn(
         "font-medium transition-all duration-300 relative group py-2",
-        scrolled ? "text-gray-700 hover:text-blue-600" : "text-gray-700 hover:text-blue-500",
+        scrolled ? "text-black hover:text-blue-600" : pageTheme === 'dark' ? "text-white hover:text-blue-300" : "text-black hover:text-blue-500",
+        isActive && "hover:bg-blue-500 hover:text-gray-800 bg-blue-500 px-2 py-1 rounded-full transition-all duration-300 ease-in-out",
         className
       )}
     >
       {children}
-      <span
-        className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-500"
-      ></span>
+      {!isActive && (
+        <span
+          className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-500"
+        ></span>
+      )}
     </Link>
   );
 };

@@ -85,8 +85,8 @@ const EventsPage = () => {
   });
 
   return (
-    <main className="responsive-container">
-      <div className="space-y-8">
+    <main className="responsive-container mt-16">
+      <div className="space-y-8 mt-20">
         {/* Hero Section */}
         <section className="bg-primary/5 rounded-lg p-8 mb-8">
           <div className="max-w-3xl mx-auto text-center">
