@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border py-12">
+    <footer className="min-h-[70vh] bg-black border-t border-border py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Intro */}
@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-36 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
             {currentYear} Nairobi AI. All rights reserved.
           </p>

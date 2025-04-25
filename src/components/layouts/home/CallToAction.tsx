@@ -34,7 +34,7 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-24 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white"
+      className="relative py-24 min-h-[80vh] overflow-hidden bg-[#FFE4B5]"
     >
       <div className="absolute inset-0 overflow-hidden">
         {/* Decorative elements */}
@@ -64,11 +64,11 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
           >
             <Link
               to="/register"
-              className="group relative overflow-hidden text-base px-10 py-5 rounded-full font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-center"
+              className="group relative overflow-hidden text-base px-10 py-5 rounded-full font-semibold bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-center"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2 hover:scale-110 transition-all ease-in-out duration-300">
                 Join Nairobi AI
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                {/* <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" /> */}
               </span>
             </Link>
             

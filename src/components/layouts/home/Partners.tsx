@@ -38,7 +38,7 @@ const Partners = ({ onSectionChange }: PartnersProps) => {
         <div 
           className={`text-center mb-12 transition-all duration-700 transform ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
         >
-          <h2 className="text-3xl font-bold">Our Partners</h2>
+          <h2 className="text-3xl font-bold">Partners</h2>
           <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
             Collaborating with leading organizations to advance AI innovation in Africa.
           </p>

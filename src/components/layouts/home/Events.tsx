@@ -46,13 +46,13 @@ const Events = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-gray-900"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 border rounded-2xl p-4 tracking-wide inline-block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Events
+            events
           </motion.h2>
           <motion.p
             className="text-lg md:text-xl font-light text-gray-700 max-w-2xl mx-auto"
@@ -95,7 +95,7 @@ const Events = () => {
           </div>
         ) : (
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8"
+            className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8 bg-transparent"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -113,7 +113,7 @@ const Events = () => {
             {/* Event Details - Takes up 3 columns on large screens */}
             <div className="lg:col-span-2 flex flex-col justify-between p-6 ">
               <div>
-                <div className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+                <div className="inline-block bg-green-900/20 text-green-700 px-4 py-1 rounded-full text-sm font-medium mb-4">
                   {eventData?.type || featuredEvent.type}
                 </div>
 
@@ -125,11 +125,11 @@ const Events = () => {
 
                 <div className="grid grid-cols-1 gap-4 mb-6">
                   <div className="flex items-center">
-                    <Calendar className="w-5 h-5 mr-2 text-primary" />
+                    <Calendar className="w-5 h-5 mr-2 text-red-500" />
                     <span>{eventData?.date || featuredEvent.date}</span>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="w-5 h-5 mr-2 text-primary" />
+                    <MapPin className="w-5 h-5 mr-2 text-red-500" />
                     <span>{eventData?.location || featuredEvent.location}</span>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ const Events = () => {
 
                 <Link
                   to="/events"
-                  className="inline-flex items-center justify-center bg-primary text-white font-medium py-2 px-6 rounded-full hover:bg-primary/90 transition-colors duration-200"
+                  className="inline-flex items-center justify-center bg-black text-white font-medium py-2 px-6 rounded-full hover:bg-primary/90 transition-colors duration-200"
                 >
                   Register Now
                 </Link>

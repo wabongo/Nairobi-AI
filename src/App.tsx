@@ -10,13 +10,14 @@ import ProfilePage from './pages/ProfilePage';
 import AboutPage from './pages/About';
 import NotFoundPage from './pages/NotFoundPage';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import EventDetailsPage from './pages/EventDetailsPage';
 
 function App() {
   return (
     <Routes>
       <Route path='/login' element={<Login/>}/>
-      <Route path='/register'/>
+      <Route path='/register' element={<Register/>}/>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="events" element={<EventsPage />} />
