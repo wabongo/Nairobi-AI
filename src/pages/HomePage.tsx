@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Hero from '../components/layouts/home/Hero';
 import Statistics from '../components/layouts/home/Statistics';
 import Hatch from '../components/layouts/home/Hatch';
+import Events from '../components/layouts/home/Events';
 import CallToAction from '../components/layouts/home/CallToAction';
 import Partners from '../components/layouts/home/Partners';
 import SmoothScrollSection from '../components/layouts/home/SmoothScrollSection';
@@ -30,6 +31,11 @@ const HomePage = () => {
       {/* Community Section (inserted after Hero) */}
       <SmoothScrollSection id="community-main">
         <Hatch />
+      </SmoothScrollSection>
+
+      {/* Events Section */}
+      <SmoothScrollSection id="events">
+        <Events />
       </SmoothScrollSection>
 
       {/* Call to Action Section */}

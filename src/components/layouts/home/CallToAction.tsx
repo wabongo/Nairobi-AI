@@ -47,14 +47,15 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
           <h2 
             className={`text-4xl md:text-5xl font-bold mb-6 transition-all duration-700 transform ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
           >
-            Ready to Shape the Future of AI in Africa?
+            Engage and Grow. <br/> Ready to Shape Africa's Future?
           </h2>
           
           <p 
             className={`text-xl text-gray-600 mb-10 transition-all duration-700 transform ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
             style={{ transitionDelay: '200ms' }}
           >
-            Join our community of innovators, researchers, and developers working together to build AI solutions that address Africa's unique challenges and opportunities.
+            Join our community of curious innovators, researchers, developers, students, business professionals, enthusiasts, and ... EVERYONE, 
+            <br/>working together to build AI solutions that address Africa's unique challenges and opportunities.
           </p>
           
           <div 
@@ -71,7 +72,7 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
               </span>
             </Link>
             
-            <Link
+            {/* <Link
               to="/events"
               className="group relative overflow-hidden text-base px-10 py-5 rounded-full font-semibold bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-center"
             >
@@ -79,7 +80,7 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
                 Upcoming Events
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

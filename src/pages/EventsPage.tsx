@@ -1,8 +1,12 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Calendar, MapPin, Clock, Filter, Search, Users, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Calendar, MapPin, Clock, Users, ExternalLink, ArrowRight, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { EventCard } from '@/components/layouts/events/EventCard';
+import { FeaturedEventCard } from '@/components/layouts/events/FeaturedEventCard';
 
 // Sample event data
-const EVENTS_DATA = [
+export const EVENTS_DATA = [
   {
     id: 1,
     title: 'Introduction to Large Language Models',
@@ -73,9 +77,29 @@ const EVENTS_DATA = [
 
 const EVENT_TYPES = ['All Types', 'Workshop', 'Webinar', 'Conference', 'Meetup', 'Hackathon', 'Panel Discussion'];
 
-const EventsPage = () => {
+// Type definitions
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  type: string;
+  attendees: number;
+  image: string;
+}
+
+interface EventCardProps {
+  event: Event;
+}
+
+
+// Main EventsPage Component
+const EventsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('All Types');
+  const [useSearch] = useState(false);
   
   const filteredEvents = EVENTS_DATA.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -83,181 +107,70 @@ const EventsPage = () => {
     const matchesType = selectedType === 'All Types' || event.type === selectedType;
     return matchesSearch && matchesType;
   });
+  
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+  
+  const handleTypeChange = (type: string) => {
+    setSelectedType(type);
+  };
+  
+  // Featured event is the first event with the most attendees
+  const featuredEvent = [...EVENTS_DATA].sort((a, b) => b.attendees - a.attendees)[0];
 
   return (
     <main className="responsive-container mt-16">
       <div className="space-y-8 mt-20">
         {/* Hero Section */}
-        <section className="bg-primary/5 rounded-lg p-8 mb-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Nairobi AI Events</h1>
-            <p className="text-muted-foreground">
-              Discover workshops, conferences, meetups, and more from the Nairobi AI community.
-            </p>
+        <motion.section 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative rounded-2xl overflow-hidden"
+        >
+          <div className="p-8">
+            <p>Our events are crafted to engage and foster meaningful connections. Discover what's ahead!</p>
           </div>
-        </section>
+        </motion.section>
 
-        {/* Filters */}
-        <section className="mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search events..."
-                className="pl-10 w-full bg-background border border-border rounded-md py-2 px-4 focus:outline-none focus:ring-1 focus:ring-primary"
-                value={searchTerm}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            
-            <div className="relative w-full md:w-64 flex-shrink-0">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <select
-                className="pl-10 w-full bg-background border border-border rounded-md py-2 px-4 focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
-                value={selectedType}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedType(e.target.value)}
-              >
-                {EVENT_TYPES.map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
+        {/* Search and Filter */}
+        {/* update when we have more data */}
+        {useSearch && <div className="flex flex-wrap gap-4 justify-between items-center">
+          <div className="relative">
+            <input 
+              type="search" 
+              value={searchTerm} 
+              onChange={handleSearchChange} 
+              placeholder="Search events" 
+              className="bg-card border border-border rounded-full py-2 pl-10 pr-4 text-sm text-muted-foreground"
+            />
+            <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
           </div>
-          
-          {filteredEvents.length === 0 && (
-            <div className="text-center p-12 border border-dashed border-border rounded-lg mt-8">
-              <p className="text-muted-foreground">No events found matching your criteria. Try adjusting your filters.</p>
-            </div>
-          )}
-        </section>
+          <div className="flex items-center">
+            <select 
+              value={selectedType} 
+              onChange={(e) => handleTypeChange(e.target.value)} 
+              className="bg-card border border-border rounded-full py-2 pl-4 pr-10 text-sm text-muted-foreground"
+            >
+              {EVENT_TYPES.map((type, index) => (
+                <option key={index} value={type}>{type}</option>
+              ))}
+            </select>
+          </div>
+        </div>}
 
         {/* Featured Event */}
-        {filteredEvents.length > 0 && filteredEvents[0] && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6">Featured Event</h2>
-            <div className="rounded-xl overflow-hidden border border-border bg-card">
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="h-48 md:h-auto overflow-hidden relative">
-                  <img 
-                    src={filteredEvents[0].image} 
-                    alt={filteredEvents[0].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {filteredEvents[0].type}
-                  </div>
-                </div>
-                <div className="p-6 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{filteredEvents[0].title}</h3>
-                    <p className="text-muted-foreground mb-4">{filteredEvents[0].description}</p>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center text-sm">
-                        <Calendar className="w-4 h-4 mr-2 text-primary" />
-                        <span>{filteredEvents[0].date}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <Clock className="w-4 h-4 mr-2 text-primary" />
-                        <span>{filteredEvents[0].time}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <MapPin className="w-4 h-4 mr-2 text-primary" />
-                        <span>{filteredEvents[0].location}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <Users className="w-4 h-4 mr-2 text-primary" />
-                        <span>{filteredEvents[0].attendees} attendees</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
-                      Register Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+        <FeaturedEventCard event={featuredEvent} />
 
-        {/* Events Grid */}
-        <section>
-          <h2 className="text-2xl font-bold mb-6">Upcoming Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredEvents.slice(1).map(event => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        </section>
-
-        {/* Create Event CTA */}
-        <section className="mt-12 bg-card rounded-lg p-8 border border-border">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-              <h2 className="text-2xl font-bold">Host Your AI Event</h2>
-              <p className="mt-2 text-muted-foreground">
-                Share your knowledge and connect with the community by hosting your own AI event.
-              </p>
-            </div>
-            <button className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors whitespace-nowrap self-start">
-              Create Event
-            </button>
-          </div>
-        </section>
+        {/* Event Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEvents.map((event, index) => (
+            <EventCard key={index} event={event} />
+          ))}
+        </div>
       </div>
     </main>
   );
 };
-
-interface EventCardProps {
-  event: typeof EVENTS_DATA[0];
-}
-
-const EventCard: React.FC<EventCardProps> = ({ event }) => (
-  <div className="bg-card border border-border rounded-xl overflow-hidden transition-all hover:shadow-md flex flex-col h-full">
-    <div className="h-48 overflow-hidden relative">
-      <img 
-        src={event.image} 
-        alt={event.title}
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-        {event.type}
-      </div>
-    </div>
-    <div className="p-6 flex-1 flex flex-col">
-      <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
-      
-      <div className="space-y-1.5 mt-auto">
-        <div className="flex items-center text-sm">
-          <Calendar className="w-4 h-4 mr-2 text-primary" />
-          <span>{event.date}</span>
-        </div>
-        <div className="flex items-center text-sm">
-          <MapPin className="w-4 h-4 mr-2 text-primary" />
-          <span>{event.location}</span>
-        </div>
-        <div className="flex items-center text-sm">
-          <Users className="w-4 h-4 mr-2 text-primary" />
-          <span>{event.attendees} attendees</span>
-        </div>
-      </div>
-      
-      <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
-        <span className="text-primary font-medium text-sm">View Details</span>
-        <ExternalLink className="w-4 h-4 text-primary" />
-      </div>
-    </div>
-  </div>
-);
-
 export default EventsPage;

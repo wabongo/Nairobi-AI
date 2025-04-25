@@ -142,7 +142,7 @@ const Header = () => {
             whileTap={{ y: 0 }}
           >
             <Link
-              to="/profile"
+              to="/login"
               className="group relative overflow-hidden text-base px-8 py-4 rounded-full font-medium bg-black hover:bg-black/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
             >
               Sign In

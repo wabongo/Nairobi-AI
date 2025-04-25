@@ -9,10 +9,14 @@ import JobsPage from './pages/JobsPage';
 import ProfilePage from './pages/ProfilePage';
 import AboutPage from './pages/About';
 import NotFoundPage from './pages/NotFoundPage';
+import Login from './pages/Login';
+import EventDetailsPage from './pages/EventDetailsPage';
 
 function App() {
   return (
     <Routes>
+      <Route path='/login' element={<Login/>}/>
+      <Route path='/register'/>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="events" element={<EventsPage />} />
@@ -22,8 +26,9 @@ function App() {
         <Route path="forums" element={<ForumsPage />} />
         <Route path="jobs" element={<JobsPage />} />
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/events/:id" element={<EventDetailsPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
