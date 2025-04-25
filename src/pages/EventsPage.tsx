@@ -1,9 +1,9 @@
-import React, { useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Clock, Users, ExternalLink, ArrowRight, Search } from 'lucide-react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { EventCard } from '@/components/layouts/events/EventCard';
 import { FeaturedEventCard } from '@/components/layouts/events/FeaturedEventCard';
+import { EventCardSkeleton } from '@/components/layouts/events/EventCardSkeleton';
 
 // Sample event data
 export const EVENTS_DATA = [
@@ -77,8 +77,8 @@ export const EVENTS_DATA = [
 
 const EVENT_TYPES = ['All Types', 'Workshop', 'Webinar', 'Conference', 'Meetup', 'Hackathon', 'Panel Discussion'];
 
-// Type definitions
-interface Event {
+// Type definitions for the events data
+export interface Event {
   id: number;
   title: string;
   description: string;
@@ -90,18 +90,17 @@ interface Event {
   image: string;
 }
 
-interface EventCardProps {
-  event: Event;
-}
-
 
 // Main EventsPage Component
 const EventsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('All Types');
   const [useSearch] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState<typeof EVENTS_DATA>([]);
   
-  const filteredEvents = EVENTS_DATA.filter(event => {
+  // Use events state instead of directly using EVENTS_DATA
+  const filteredEvents = events.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           event.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = selectedType === 'All Types' || event.type === selectedType;
@@ -117,7 +116,25 @@ const EventsPage: React.FC = () => {
   };
   
   // Featured event is the first event with the most attendees
-  const featuredEvent = [...EVENTS_DATA].sort((a, b) => b.attendees - a.attendees)[0];
+  const featuredEvent = events.length > 0 ? [...events].sort((a, b) => b.attendees - a.attendees)[0] : null;
+  
+  useEffect(() => {
+    // Simulate API call to fetch events data
+    const fetchEvents = async () => {
+      try {
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Set the data
+        setEvents(EVENTS_DATA);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <main className="responsive-container mt-16">
@@ -127,10 +144,10 @@ const EventsPage: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-2xl overflow-hidden"
+          className="relative overflow-hidden bg-transparent"
         >
-          <div className="p-8">
-            <p>Our events are crafted to engage and foster meaningful connections. Discover what's ahead!</p>
+          <div className="pt-8 pb-3 text-center">
+            <p className="text-2xl">Our events are crafted to engage and foster meaningful connections. <br/> Discover what's ahead!</p>
           </div>
         </motion.section>
 
@@ -161,13 +178,39 @@ const EventsPage: React.FC = () => {
         </div>}
 
         {/* Featured Event */}
-        <FeaturedEventCard event={featuredEvent} />
+        {loading ? (
+          <div className="mb-8">
+            <div className="rounded-2xl overflow-hidden bg-white">
+              <div className="h-64 w-full">
+                <div className="animate-pulse bg-gray-200 h-full w-full"></div>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="animate-pulse bg-gray-200 h-6 w-1/4 rounded"></div>
+                <div className="animate-pulse bg-gray-200 h-8 w-3/4 rounded"></div>
+                <div className="animate-pulse bg-gray-200 h-20 w-full rounded"></div>
+                <div className="flex justify-between">
+                  <div className="animate-pulse bg-gray-200 h-6 w-1/3 rounded"></div>
+                  <div className="animate-pulse bg-gray-200 h-10 w-1/4 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          featuredEvent && <FeaturedEventCard event={featuredEvent} />
+        )}
 
         {/* Event Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map((event, index) => (
-            <EventCard key={index} event={event} />
-          ))}
+          {loading ? (
+            // Display skeleton cards while loading
+            Array(6).fill(0).map((_, index) => (
+              <EventCardSkeleton key={index} />
+            ))
+          ) : (
+            filteredEvents.map((event, index) => (
+              <EventCard key={index} event={event} />
+            ))
+          )}
         </div>
       </div>
     </main>

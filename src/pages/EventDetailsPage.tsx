@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, Clock, MapPin, Users, ArrowLeft, Share2, ExternalLink, Star, MessageCircle, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, ArrowLeft, Share2, ExternalLink, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Skeleton } from '@/components/layouts/Skeleton';
 
 // Import the event data (you can later replace this with an API call)
 import { EVENTS_DATA } from './EventsPage';
@@ -101,10 +102,53 @@ const EventDetailsPage = () => {
 
   if (loading) {
     return (
-      <div className="responsive-container mt-24 flex justify-center items-center min-h-[50vh]">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-10 w-64 bg-gray-200 rounded-full mb-4"></div>
-          <div className="h-6 w-40 bg-gray-200 rounded-full"></div>
+      <div className="responsive-container mt-24 flex flex-col space-y-8 min-h-[80vh] px-4">
+        {/* Back button skeleton */}
+        <div>
+          <Skeleton variant="text" width="120px" />
+        </div>
+        
+        {/* Hero section skeleton */}
+        <div className="relative rounded-2xl overflow-hidden">
+          <div className="h-80 md:h-96 w-full">
+            <Skeleton height="100%" width="100%" />
+            
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+              <Skeleton variant="text" width="120px" className="mb-4" />
+              <Skeleton variant="text" width="70%" height="40px" className="mb-4" />
+              
+              <div className="flex flex-wrap gap-6 mt-4">
+                <Skeleton variant="text" width="120px" />
+                <Skeleton variant="text" width="120px" />
+                <Skeleton variant="text" width="120px" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Action buttons skeleton */}
+        <div className="flex flex-wrap gap-4 justify-between items-center">
+          <div className="flex gap-3">
+            <Skeleton variant="rectangular" width="150px" height="48px" className="rounded-full" />
+            <Skeleton variant="rectangular" width="120px" height="48px" className="rounded-full" />
+          </div>
+          
+          <Skeleton variant="text" width="100px" />
+        </div>
+        
+        {/* Tabs skeleton */}
+        <div className="border-b border-gray-200 mb-8">
+          <div className="flex space-x-8">
+            <Skeleton variant="text" width="100px" height="30px" />
+            <Skeleton variant="text" width="100px" height="30px" />
+            <Skeleton variant="text" width="100px" height="30px" />
+          </div>
+        </div>
+        
+        {/* Content skeleton */}
+        <div className="space-y-6">
+          <Skeleton variant="text" width="100%" height="100px" />
+          <Skeleton variant="text" width="100%" height="200px" />
         </div>
       </div>
     );

@@ -1,21 +1,31 @@
 // React is automatically imported by JSX transform
+import { useState } from 'react';
 import CommunitySpotlight from '../components/layouts/home/CommunitySpotlight';
 import { Link } from 'react-router-dom';
+import Spinner from '../components/layouts/Spinner';
 
 const About = () => {
+  const [imageLoading, setImageLoading] = useState(true);
   return (
     <main className="min-h-screen bg-white text-gray-900 flex flex-col items-center overflow-x-hidden">
       {/* Hero Section with Nairobi Skyline */}
       <section className="relative w-full h-screen min-h-[100vh] flex items-center justify-center overflow-hidden mb-8 md:mb-16">
         {/* Full opacity image with fallback */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-800 to-pink-700" id="image-fallback"></div>
+        {imageLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-pink-700">
+            <Spinner size="lg" color="white" text="Loading image..." />
+          </div>
+        )}
         <img
           src="https://cdn.pixabay.com/photo/2017/09/08/21/32/nairobi-2730268_1280.jpg"
           alt="Nairobi Skyline"
           className="absolute w-full h-full object-cover object-center"
           loading="eager"
+          onLoad={() => setImageLoading(false)}
           onError={(e) => {
             // If image fails to load, show the fallback gradient
+            setImageLoading(false);
             const target = e.currentTarget;
             target.style.display = 'none';
             document.getElementById('image-fallback')?.classList.add('animate-gradient-x');
