@@ -8,6 +8,10 @@ module.exports = {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      sora: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+    },
     container: {
       center: true,
       padding: "2rem",

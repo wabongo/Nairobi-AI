@@ -6,12 +6,10 @@ import {
   Flame,
   PlusCircle,
   Search as SearchIcon,
-  Filter as FilterIcon,
   Eye,
-  Clock,
-  Tag as TagIcon,
-  Sparkles,
-  ArrowRight
+  ArrowRight,
+  MoreHorizontal,
+  Bookmark
 } from 'lucide-react';
 
 // Dummy categories
@@ -99,19 +97,29 @@ const threads = [
 
 // Category Sidebar Component
 const CategorySidebar = ({ current, onSelect }: { current: string; onSelect: (cat: string) => void }) => (
-  <aside className="hidden lg:block w-64 pr-6 border-r border-border sticky top-20 self-start h-screen overflow-y-auto pb-20">
-    <h2 className="text-sm font-bold text-gray-500 uppercase mb-4 flex items-center gap-2"><Sparkles className="w-4 h-4 text-blue-500" /> Categories</h2>
-    <ul className="space-y-2">
+  <aside className="hidden lg:block w-72 pr-6 border-r border-gray-100 sticky top-20 self-start h-screen overflow-y-auto pb-20 font-sans">
+    <h2 className="text-sm font-semibold text-gray-900 mb-4">Categories</h2>
+    <ul className="space-y-1">
+      <li>
+        <button
+          className={`flex justify-between items-center w-full px-3 py-2 rounded-md text-left transition-colors ${
+            current === 'All' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'
+          }`}
+          onClick={() => onSelect('All')}
+        >
+          <span>All threads</span>
+        </button>
+      </li>
       {categories.map((cat) => (
         <li key={cat.id}>
           <button
-            className={`flex justify-between items-center w-full px-4 py-2 rounded-lg text-left transition-colors ${
-              current === cat.name ? 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md' : 'hover:bg-gray-100'
+            className={`flex justify-between items-center w-full px-3 py-2 rounded-md text-left transition-colors ${
+              current === cat.name ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'
             }`}
             onClick={() => onSelect(cat.name)}
           >
             <span>{cat.name}</span>
-            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-black/10">{cat.threads}</span>
+            <span className="text-xs text-gray-500">{cat.threads}</span>
           </button>
         </li>
       ))}
@@ -122,59 +130,64 @@ const CategorySidebar = ({ current, onSelect }: { current: string; onSelect: (ca
 // Thread card component
 const ThreadCard = ({ thread }: { thread: typeof threads[0] }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 10 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4 }}
+    transition={{ duration: 0.3 }}
     viewport={{ once: true }}
-    whileHover={{ y: -5 }}
-    className="bg-gradient-to-br from-white via-white to-gray-50 border border-border rounded-xl p-5 flex flex-col gap-4 hover:shadow-lg transition-all duration-300 relative overflow-hidden"
+    className="bg-white border-b border-gray-100 px-5 py-4 flex flex-col gap-3 hover:bg-gray-50/50 transition-colors duration-200"
   >
-    {/* Decorative elements */}
-    <div className="absolute -right-6 -top-6 w-12 h-12 rounded-full bg-blue-500/10 z-0"></div>
-    <div className="absolute right-12 -bottom-6 w-16 h-16 rounded-full bg-purple-500/10 z-0"></div>
-    <div className="flex items-center gap-3 relative z-10">
-      <img src={thread.author.avatar} alt={thread.author.name} className="w-10 h-10 rounded-full ring-2 ring-white shadow-sm" />
-      <div>
-        <h3 className="font-semibold text-lg leading-snug">{thread.title}</h3>
-        <div className="text-xs text-gray-500 flex items-center gap-1">
-          <Clock className="w-3 h-3" /> {thread.lastActivity}
-          <span className="mx-1">•</span>
-          <span>{thread.author.name}</span>
+    <div className="flex items-start gap-3">
+      <img src={thread.author.avatar} alt={thread.author.name} className="w-10 h-10 rounded-full object-cover" />
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-medium text-sm text-black">{thread.author.name}</span>
+            <span className="text-xs text-gray-500">· {thread.lastActivity}</span>
+          </div>
+          <button className="text-gray-400 hover:text-gray-600">
+            <MoreHorizontal className="w-4 h-4" />
+          </button>
+        </div>
+        <h3 className="font-medium text-base leading-snug mt-1 text-black">{thread.title}</h3>
+
+    </div>
+
+        <div className="flex flex-wrap gap-2 mt-2">
+          {thread.tags.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center text-xs text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              #{tag.replace(/ /g, '')}
+            </span>
+          ))}
+          {thread.trending && (
+            <span className="inline-flex items-center gap-0.5 text-xs text-gray-900 font-medium">
+              <Flame className="w-3 h-3 text-orange-500" /> Trending
+            </span>
+          )}
         </div>
       </div>
-      {thread.trending && (
-        <motion.span 
-          className="ml-auto inline-flex items-center gap-1 text-xs bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full shadow-sm"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <Flame className="w-3 h-3" /> Trending
-        </motion.span>
-      )}
-    </div>
 
-    <div className="flex flex-wrap gap-1 relative z-10">
-      {thread.tags.map((tag) => (
-        <motion.span
-          key={tag}
-          whileHover={{ scale: 1.05 }}
-          className="inline-flex items-center gap-1 text-xs bg-blue-600/10 text-blue-700 px-2 py-1 rounded-full cursor-pointer hover:bg-blue-600/20 transition-colors"
-        >
-          <TagIcon className="w-3 h-3" /> {tag}
-        </motion.span>
-      ))}
-    </div>
-
-    <div className="flex gap-6 text-sm text-gray-500 mt-auto pt-2 border-t border-gray-100 relative z-10">
-      <span className="inline-flex items-center gap-1 hover:text-blue-600 transition-colors cursor-pointer">
-        <MessageCircle className="w-4 h-4" /> {thread.replies} Replies
-      </span>
-      <span className="inline-flex items-center gap-1 hover:text-blue-600 transition-colors cursor-pointer">
-        <Eye className="w-4 h-4" /> {thread.views} Views
-      </span>
-      <span className="ml-auto inline-flex items-center gap-1 text-blue-600 font-medium hover:underline cursor-pointer">
-        View <ArrowRight className="w-3 h-3" />
-      </span>
+    <div className="flex items-center justify-between mt-1 text-gray-500">
+      <div className="flex items-center gap-5">
+        <button className="flex items-center gap-1.5 hover:text-black transition-colors">
+          <MessageCircle className="w-[18px] h-[18px]" /> 
+          <span className="text-xs">{thread.replies}</span>
+        </button>
+        <button className="flex items-center gap-1.5 hover:text-black transition-colors">
+          <Eye className="w-[18px] h-[18px]" />
+          <span className="text-xs">{thread.views}</span>
+        </button>
+      </div>
+      <div className="flex items-center gap-4">
+        <button className="hover:text-black transition-colors">
+          <Bookmark className="w-[18px] h-[18px]" />
+        </button>
+        <button className="hover:text-black transition-colors">
+          <ArrowRight className="w-[18px] h-[18px]" />
+        </button>
+      </div>
     </div>
   </motion.div>
 );
@@ -192,69 +205,50 @@ const ForumsPage = () => {
   }, [selectedCategory, query]);
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 flex flex-col lg:flex-row gap-8 mt-20 pt-10 pl-5 pr-5">
+    <main className="min-h-screen bg-white text-gray-900 flex flex-col lg:flex-row gap-0 mt-20 pt-10 font-sans w-full pl-10 pr-10">
       {/* Sidebar */}
       <CategorySidebar current={selectedCategory} onSelect={setSelectedCategory} />
 
       {/* Main content */}
-      <section className="flex-1 px-1 sm:px-4 md:px-8 lg:pl-0 py-8 space-y-8 max-w-5xl mx-auto w-full bg-transparent">
+      <section className="flex-1 border-l border-gray-100 w-full bg-transparent">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
           <div>
-            <h1 className="text-xl font-black tracking-tight bg-transparent text-gray-900">forums</h1>
-            {/* <p className="text-muted-foreground mt-2 max-w-md">
-              Engage with Nairobi's AI community. Ask questions, share ideas, and collaborate on projects.
-            </p> */}
+            <h1 className="text-xl font-semibold text-black font-sora">Forums</h1>
           </div>
 
           <motion.button 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-5 py-2.5 rounded-full hover:shadow-lg transition-all duration-300 self-start sm:self-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-1.5 bg-black text-white px-4 py-1.5 rounded-full hover:bg-gray-800 transition-colors text-sm font-medium"
+            whileTap={{ scale: 0.95 }}
           >
-            <PlusCircle className="w-5 h-5" /> New Thread
+            <PlusCircle className="w-4 h-4" /> New Thread
           </motion.button>
         </div>
 
         {/* Search & filter */}
-        <div className="flex gap-3 flex-col sm:flex-row">
-          <div className="relative flex-1">
-            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+        <div className="px-5 py-3 border-b border-gray-100">
+          <div className="relative">
+            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search threads…"
-              className="w-full bg-gray-100 border border-border rounded-full py-2.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-sm"
+              placeholder="Search forums"
+              className="w-full bg-gray-50 border border-gray-200 rounded-full py-2 pl-9 pr-4 focus:outline-none focus:ring-1 focus:ring-black focus:border-black text-sm"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <motion.button 
-            className="inline-flex gap-2 items-center bg-white border border-border px-4 py-2.5 rounded-full hover:bg-gray-50 shadow-sm transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <FilterIcon className="w-4 h-4" />
-            Filters
-          </motion.button>
         </div>
 
         {/* Threads list */}
-        <div className="grid gap-6 md:grid-cols-2 relative">
+        <div className="divide-y divide-gray-100 bg-white">
           {filteredThreads.length ? (
             filteredThreads.map((thread) => <ThreadCard key={thread.id} thread={thread} />)
           ) : (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="col-span-full flex flex-col items-center text-center py-16 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-100 shadow-sm"
-            >
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-full bg-blue-500/10 animate-pulse"></div>
-                <MessageCircle className="h-12 w-12 text-blue-500 mb-4 relative" />
-              </div>
-              <h2 className="text-xl font-semibold mb-2">No threads found</h2>
-              <p className="text-muted-foreground max-w-sm">Try adjusting your search or filters to find what you're looking for.</p>
-            </motion.div>
+            <div className="flex flex-col items-center text-center py-16">
+              <MessageCircle className="h-10 w-10 text-gray-300 mb-4" />
+              <h2 className="text-lg font-medium text-black mb-1">No threads found</h2>
+              <p className="text-gray-500 text-sm max-w-sm">Try adjusting your search or filters to find what you're looking for.</p>
+            </div>
           )}
         </div>
       </section>
