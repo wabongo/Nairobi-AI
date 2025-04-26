@@ -49,7 +49,7 @@ const Header = () => {
     { to: "/projects", label: "Projects", icon: <FolderGit2 className="h-5 w-5 mr-3" /> },
     { to: "/about", label: "About", icon: <BookOpen className="h-5 w-5 mr-3" /> },
     { to: "/forums", label: "Forums", icon: <MessageSquare className="h-5 w-5 mr-3" /> },
-    { to: "/jobs", label: "Jobs", icon: <Briefcase className="h-5 w-5 mr-3" /> },
+    // { to: "/jobs", label: "Jobs", icon: <Briefcase className="h-5 w-5 mr-3" /> },
   ];
 
   useEffect(() => {

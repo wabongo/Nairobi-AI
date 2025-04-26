@@ -1,6 +1,6 @@
 // React is automatically imported by JSX transform
 import { useState } from 'react';
-import CommunitySpotlight from '../components/layouts/home/CommunitySpotlight';
+import CommunitySpotlight from '../components/layouts/about/CommunitySpotlight';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/layouts/Spinner';
 
@@ -46,36 +46,68 @@ const About = () => {
       </section>
 
       {/* Origins */}
-      <section className="w-full max-w-2xl mb-12 md:mb-20 border-l-4 border-black pl-4 sm:pl-8 py-6 md:py-8 bg-white/90 shadow-sm mx-4 sm:mx-0">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-black">Our Origins</h2>
-        <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+      <section className="w-full max-w-6xl mb-12 md:mb-20 pl-4 sm:pl-8 py-8 md:py-10 bg-transparent mx-4 sm:mx-0 transform transition-all duration-300">
+        <h2 className="text-xl md:text-2xl font-black mb-4 md:mb-6 text-indigo-800">OUR ORIGINS</h2>
+        <p className="text-base md:text-lg text-gray-800 leading-relaxed mb-4">
           Nairobi AI was born from a shared vision: to create a vibrant hub where curiosity, collaboration, and technology converge. What started as a small gathering of AI enthusiasts has grown into a dynamic movement, uniting students, professionals, and innovators across Nairobi and beyond.
         </p>
+        <p className="text-base md:text-lg text-gray-800 leading-relaxed">
+          Founded in 2020, we've grown from meetups of just 12 members to a thriving community of over 500 AI enthusiasts. Our journey reflects Nairobi's emergence as a tech powerhouse in Africa.
+        </p>
+        <div className="mt-6 flex items-center">
+          <div className="h-1 w-16 bg-indigo-600 mr-3"></div>
+          <span className="text-sm font-bold text-indigo-600">EST. 2020</span>
+        </div>
       </section>
 
       {/* Goals & Aspirations */}
-      <section className="w-full max-w-2xl mb-12 md:mb-20 border-l-4 border-black pl-4 sm:pl-8 py-6 md:py-8 bg-white/90 shadow-sm mx-4 sm:mx-0">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-black">Aspirations</h2>
-        <ul className="list-disc text-base md:text-lg text-gray-700 ml-4 space-y-2">
-          <li><span className="font-semibold text-black">Foster Community:</span> Build a supportive network for AI learning and growth.</li>
-          <li><span className="font-semibold text-black">Drive Innovation:</span> Encourage real-world projects and creative problem-solving.</li>
-          <li><span className="font-semibold text-black">Promote Inclusion:</span> Make AI accessible to all, regardless of background or experience.</li>
-          <li><span className="font-semibold text-black">Shape the Future:</span> Inspire the next generation of African AI leaders.</li>
-        </ul>
+      <section className="w-full max-w-6xl mb-12 md:mb-20 pl-4 sm:pl-8 py-8 md:py-10 bg-transparent mx-4 sm:mx-0 transform transition-all duration-300">
+        <h2 className="text-xl md:text-2xl mb-4 md:mb-6 text-pink-800">ASPIRATIONS</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-2">
+          <div className="bg-white/80 p-4 rounded-lg">
+            <h3 className="text-xl font-bold text-pink-700 mb-2">01. FOSTER COMMUNITY</h3>
+            <p className="text-gray-800">Build a supportive network for AI learning and growth, creating spaces where knowledge flows freely and collaboration thrives.</p>
+          </div>
+          <div className="bg-white/80 p-4 rounded-lg">
+            <h3 className="text-xl font-bold text-pink-700 mb-2">02. DRIVE INNOVATION</h3>
+            <p className="text-gray-800">Encourage real-world projects and creative problem-solving that address local challenges with global technologies.</p>
+          </div>
+          <div className="bg-white/80 p-4 rounded-lg">
+            <h3 className="text-xl font-bold text-pink-700 mb-2">03. PROMOTE INCLUSION</h3>
+            <p className="text-gray-800">Make AI accessible to all, regardless of background or experience, ensuring diverse voices shape our technological future.</p>
+          </div>
+          <div className="bg-white/80 p-4 rounded-lg">
+            <h3 className="text-xl font-bold text-pink-700 mb-2">04. SHAPE THE FUTURE</h3>
+            <p className="text-gray-800">Inspire the next generation of African AI leaders who will transform industries and create positive social impact.</p>
+          </div>
+        </div>
+        <div className="mt-6 flex items-center">
+          <div className="h-1 w-16 bg-pink-600 mr-3"></div>
+          <span className="text-sm font-bold text-pink-600">OUR MISSION</span>
+        </div>
+      </section>
+
+      
+      {/* Vision Statement */}
+      <section className="w-full max-w-6xl mb-12 md:mb-20 pl-4 sm:pl-8 py-8 md:py-10 bg-transparent mx-4 sm:mx-0 transform transition-all duration-300">
+        <h2 className="text-xl md:text-2xl mb-4 md:mb-6 text-emerald-800">OUR VISION</h2>
+        <div className="bg-white/80 p-6 rounded-lg mb-6">
+          <p className="text-lg md:text-xl font-medium text-emerald-700 leading-relaxed italic">
+            "We envision Nairobi as Africa's AI capital—a place where bold ideas hatch, talent flourishes, and technology shapes a brighter, more inclusive future for all."
+          </p>
+        </div>
+        <p className="text-base md:text-lg   text-gray-800 leading-relaxed">
+          By 2030, we aim to establish Nairobi as a globally recognized hub for AI innovation, with our community members leading groundbreaking research, launching successful startups, and implementing AI solutions that address Africa's most pressing challenges.
+        </p>
+        <div className="mt-6 flex items-center">
+          <div className="h-1 w-16 bg-emerald-600 mr-3"></div>
+          <span className="text-sm font-bold text-emerald-600">LOOKING FORWARD</span>
+        </div>
       </section>
 
       {/* Community Spotlight */}
-      <section className="w-full max-w-5xl mb-20">
-        {/* <h2 className="text-3xl font-bold mb-8 text-black text-center">Community Spotlight</h2> */}
+      <section className="w-full max-w-5xl mb-20 bg-transparent">
         <CommunitySpotlight />
-      </section>
-
-      {/* Vision Statement */}
-      <section className="w-full max-w-2xl mb-12 md:mb-20 border-l-4 border-black pl-4 sm:pl-8 py-6 md:py-8 bg-white/90 shadow-sm mx-4 sm:mx-0">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-black">Our Vision</h2>
-        <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-          We envision Nairobi as Africa's AI capital—a place where bold ideas hatch, talent flourishes, and technology shapes a brighter, more inclusive future for all.
-        </p>
       </section>
 
       {/* Call to Action */}

@@ -1,5 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
 
+import logo2 from "../../../assets/logos/logoipsum-359.svg";
+import logo3 from "../../../assets/logos/logoipsum-332.svg";
+import logo4 from "../../../assets/logos/logoipsum-290.svg";
+import logo5 from "../../../assets/logos/logoipsum-289.svg";
+import logo6 from "../../../assets/logos/logoipsum-223.svg";
+
+import logo1 from "../../../assets/logos/logoipsum-365.svg"
+
+const partners = [logo1, logo2, logo3, logo4, logo5, logo6];
+
 interface PartnersProps {
   onSectionChange?: (section: string) => void;
 }
@@ -32,7 +42,7 @@ const Partners = ({ onSectionChange }: PartnersProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-blue-50/20 to-white"
+      className="relative py-20 overflow-hidden bg-transparent"
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
         <div 
@@ -48,24 +58,11 @@ const Partners = ({ onSectionChange }: PartnersProps) => {
           className={`flex flex-wrap justify-center gap-8 items-center max-w-6xl mx-auto transition-all duration-700 transform ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
           style={{ transitionDelay: '200ms' }}
         >
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner1.svg" alt="Partner 1" className="max-w-full max-h-full" />
-          </div>
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner2.svg" alt="Partner 2" className="max-w-full max-h-full" />
-          </div>
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner3.svg" alt="Partner 3" className="max-w-full max-h-full" />
-          </div>
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner4.svg" alt="Partner 4" className="max-w-full max-h-full" />
-          </div>
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner5.svg" alt="Partner 5" className="max-w-full max-h-full" />
-          </div>
-          <div className="bg-white p-6 rounded-lg w-36 h-36 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-            <img src="/logos/partner6.svg" alt="Partner 6" className="max-w-full max-h-full" />
-          </div>
+          {partners.map((partner, index) => (
+            <div key={index} className="rounded-lg w-36 h-36 flex items-center justify-center hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
+              <img src={partner} alt={`Partner ${index + 1}`} className="max-w-full max-h-full" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

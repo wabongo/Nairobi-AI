@@ -10,11 +10,12 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Import images directly with correct relative paths
   const members = [
     {
       name: "Arthur Adinda",
       role: "Community Manager",
-      imgSrc: "src/assets/Arthur_PassportPhoto.jpg",
+      imgSrc: "../../../assets/spotlights/Arthur_PassportPhoto.jpg",
       linkedIn: "https://www.linkedin.com/in/arthur-adinda-3a1266120/",
       website: "",
       fact: "Passionate about democratizing AI education across Kenya."
@@ -22,7 +23,7 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
     {
       name: "Willie Macharia",
       role: "Community Organiser",
-      imgSrc: "src/assets/willy-nganga.jpg",
+      imgSrc: "../../../assets/spotlights/willy-nganga.jpg",
       linkedIn: "https://www.linkedin.com/in/willie-ng-ang-a-macharia-121518102/",
       website: "",
       fact: "Organized over 15 AI workshops connecting students with industry experts."
@@ -30,7 +31,7 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
     {
       name: "Betty Kamande",
       role: "Co-organiser",
-      imgSrc: "src/assets/betty-kamande.jpg",
+      imgSrc: "../../../assets/spotlights/betty-kamande.jpg",
       linkedIn: "https://www.linkedin.com/in/bettykamande/",
       website: "",
       fact: "Advocate for women in AI and tech leadership across East Africa."
@@ -38,7 +39,7 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
     {
       name: "Dancan Angwenyi",
       role: "Strategy",
-      imgSrc: "src/assets/dancan.jpg",
+      imgSrc: "../../../assets/spotlights/dancan.jpg",
       linkedIn: "https://www.linkedin.com/in/dancan-angwenyi-687752101/",
       website: "",
       fact: "Developing strategic partnerships to grow AI innovation in Nairobi."
@@ -46,11 +47,27 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
     {
       name: "Grace Ngari",
       role: "Community Manager",
-      imgSrc: "src/assets/grace-ngari.jpg",
+      imgSrc: "../../../assets/spotlights/grace-ngari.jpg",
       linkedIn: "https://www.linkedin.com/in/grace-ngari-2b8a01245/",
       website: "",
       fact: "Believes in the power of community to drive technological advancement."
-    }
+    },
+    {
+      name: "David Wabongo",
+      role: "Platform Engineer",
+      imgSrc: "#",
+      linkedIn: "https://www.linkedin.com/in/david-wabongo-mbatani-bb9b45122/",
+      website: "",
+      fact: "Tapping into LLMs to build solutions that matter."
+    },
+    {
+      name: "Maina Gerald",
+      role: "Platform Engineer",
+      imgSrc: "#",
+      linkedIn: "https://www.linkedin.com/in/flavian-maina-gerald/",
+      website: "",
+      fact: "Making things work... Better."
+    },
   ]
 
   useEffect(() => {
@@ -77,7 +94,7 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-purple-50/30 to-white"
+      className="relative py-20 overflow-hidden bg-transparent"
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
@@ -112,7 +129,7 @@ const CommunitySpotlight = ({ onSectionChange }: CommunitySpotlightProps) => {
                   className="absolute inset-0 w-full h-full object-cover object-center"
                   onError={(e) => {
                     // If image fails to load, show a gradient with initials
-                    const target = e.currentTarget;
+                    const target = e.currentTarget as HTMLImageElement;
                     target.style.display = 'none';
                     const parent = target.parentElement;
                     if (parent) {

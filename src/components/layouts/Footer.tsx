@@ -1,36 +1,48 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, Github, Mail } from 'lucide-react';
-import logoImage from '../../assets/NairobiAI_Logo_HighRes.png';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Github,
+  Mail,
+  ArrowRight,
+  X,
+  LucideTwitter,
+  LucideGroup,
+} from "lucide-react";
+import logoImage from "../../assets/spotlights/NairobiAI_Logo_HighRes.png";
+import { motion } from "framer-motion";
+import Meetup from "../../assets/icons/meetup.svg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="min-h-[70vh] bg-black border-t border-border py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Intro */}
-          <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={logoImage} alt="Nairobi AI Logo" className="h-10" />
+    <footer className="min-h-[70vh] bg-black py-16 text-white lowercase">
+      <div className="container mx-auto px-6">
+        {/* Logo and tagline section */}
+        <div className="mb-16 flex flex-row items-center justify-between text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            // className="mb-8"
+          >
+            <Link to="/" className="inline-block">
+              <img src={logoImage} alt="Nairobi AI Logo" className="h-16" />
             </Link>
-            <p className="text-muted-foreground text-sm mb-4">
-              Empowering Nairobi's AI community to collaborate, learn, and innovate together.
-            </p>
-            <div className="flex space-x-4 mt-4">
-              <SocialLink href="https://twitter.com" icon={<Twitter size={18} />} label="Twitter" />
-              <SocialLink href="https://facebook.com" icon={<Facebook size={18} />} label="Facebook" />
-              <SocialLink href="https://instagram.com" icon={<Instagram size={18} />} label="Instagram" />
-              <SocialLink href="https://linkedin.com" icon={<Linkedin size={18} />} label="LinkedIn" />
-              <SocialLink href="https://github.com" icon={<Github size={18} />} label="GitHub" />
-            </div>
-          </div>
+          </motion.div>
+        </div>
 
-          {/* Platform Links */}
+        {/* Main footer content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           <div>
-            <h3 className="font-semibold text-lg mb-4">Platform</h3>
-            <ul className="space-y-2">
+            {/* <h3 className="text-xl font-bold mb-6 tracking-wide border-b border-gray-800 pb-2">PLATFORM</h3> */}
+            <ul className="space-y-4">
+              <FooterLink to="/about">About</FooterLink>
               <FooterLink to="/events">Events</FooterLink>
               <FooterLink to="/resources">Resources</FooterLink>
               <FooterLink to="/projects">Projects</FooterLink>
@@ -39,47 +51,87 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Company</h3>
-            <ul className="space-y-2">
-              <FooterLink to="/about">About Us</FooterLink>
-              <FooterLink to="/team">Our Team</FooterLink>
-              <FooterLink to="/partners">Partners</FooterLink>
-              <FooterLink to="/sponsorship">Sponsorship</FooterLink>
-              <FooterLink to="/contact">Contact</FooterLink>
-            </ul>
+            {/* <h3 className="text-xl font-bold mb-6 tracking-wide border-b border-gray-800 pb-2">CONNECT</h3> */}
+            <div className="flex flex-wrap gap-4 mb-6">
+              <SocialLink
+                href="https://x.com"
+                icon={<LucideTwitter size={20} className="text-white" />}
+                label="Twitter"
+              />
+              <SocialLink
+                href="https://meetup.com"
+                icon={<LucideGroup size={20} className="text-white" />}
+                label="Meetup"
+              />
+              <SocialLink
+                href="https://instagram.com"
+                icon={
+                  <Instagram
+                    size={20}
+                    className="bg-clip-text bg-transparent bg-gradient-to-r from-red-500 via-purple-500 to-blue-400"
+                  />
+                }
+                label="Instagram"
+              />
+              <SocialLink
+                href="https://linkedin.com"
+                icon={<Linkedin size={20} className="text-white" />}
+                label="LinkedIn"
+              />
+              <SocialLink
+                href="https://github.com"
+                icon={<Github size={20} className="text-white" />}
+                label="GitHub"
+              />
+            </div>
+            <p className="text-gray-400 text-sm">
+              Follow us for the latest updates and community highlights.
+            </p>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Stay Connected</h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              Subscribe to our newsletter for updates on the latest AI events, resources, and news.
+          {/* Column 4: Newsletter */}
+          <div className="p-5 border rounded-2xl">
+            <p className="text-gray-400 mb-4">
+              Stay updated with our latest events and AI news.
             </p>
-            <div className="flex">
+            <div className="flex p-4">
               <input
                 type="email"
                 placeholder="Your email"
-                className="px-4 py-2 rounded-l-md bg-background border border-border w-full focus:outline-none focus:ring-1 focus:ring-primary"
+                className="px-4 py-3 bg-gray-900 border border-gray-800 rounded-l-md w-full focus:outline-none focus:border-gray-600 text-white"
               />
-              <button
-                className="bg-primary text-primary-foreground px-4 py-2 rounded-r-md hover:bg-primary/90 transition-colors"
-              >
+              <button className="bg-red-600 hover:bg-red-700 px-4 py-3 rounded-r-md transition-colors duration-300 flex items-center justify-center">
                 <Mail size={18} />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="mt-36 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">
-            {currentYear} Nairobi AI. All rights reserved.
+        {/* Bottom section */}
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 mb-4 md:mb-0">
+            © {currentYear} Nairobi AI. All rights reserved.
           </p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <FooterLink to="/privacy" className="text-xs">Privacy Policy</FooterLink>
-            <FooterLink to="/terms" className="text-xs">Terms of Service</FooterLink>
-            <FooterLink to="/code-of-conduct" className="text-xs">Code of Conduct</FooterLink>
+          <div className="flex space-x-6">
+            <FooterLink
+              to="#"
+              className="text-sm text-gray-500 hover:text-white"
+            >
+              Privacy Policy
+            </FooterLink>
+            <FooterLink
+              to="#"
+              className="text-sm text-gray-500 hover:text-white"
+            >
+              Terms of Service
+            </FooterLink>
+            <FooterLink
+              to="#"
+              className="text-sm text-gray-500 hover:text-white"
+            >
+              Code of Conduct
+            </FooterLink>
           </div>
         </div>
       </div>
@@ -93,11 +145,11 @@ interface FooterLinkProps {
   className?: string;
 }
 
-const FooterLink = ({ to, children, className = '' }: FooterLinkProps) => (
-  <li>
+const FooterLink = ({ to, children, className = "" }: FooterLinkProps) => (
+  <li className="list-none">
     <Link
       to={to}
-      className={`text-muted-foreground hover:text-primary transition-colors ${className}`}
+      className={`text-gray-400 hover:text-white transition-all duration-300 ${className}`}
     >
       {children}
     </Link>
@@ -108,14 +160,15 @@ interface SocialLinkProps {
   href: string;
   icon: React.ReactNode;
   label: string;
+  className?: string;
 }
 
-const SocialLink = ({ href, icon, label }: SocialLinkProps) => (
+const SocialLink = ({ href, icon, label, className = "" }: SocialLinkProps) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-muted-foreground hover:text-primary transition-colors"
+    className={`text-white p-0 m-1 rounded-full transition-all duration-300 hover:scale-110 ${className}`}
     aria-label={label}
   >
     {icon}

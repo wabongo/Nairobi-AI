@@ -46,7 +46,7 @@ const Events = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 border rounded-2xl p-4 tracking-wide inline-block"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 rounded-2xl p-4 tracking-wide inline-block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
