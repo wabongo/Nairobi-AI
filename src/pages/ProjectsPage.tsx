@@ -256,13 +256,13 @@ const FeatureList = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
           viewport={{ once: true }}
-          className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+          className="bg-inherit p-6 transition-all duration-300"
         >
           <div className="bg-green-700/10 p-3 rounded-full w-fit mb-4">
             {feature.icon}
           </div>
-          <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-          <p className="text-gray-600">{feature.description}</p>
+          <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+          <p className="text-gray-600 text-sm">{feature.description}</p>
         </motion.div>
       ))}
     </div>
@@ -273,25 +273,23 @@ const ProjectsPage = () => {
   
   return (
     <main className="responsive-container mt-16 ">
-      <div className="space-y-12 mt-20 mb-20 bg-transparent">
+      <div className="space-y-8 mt-20 mb-20 bg-transparent">
         {/* Hero Section */}
         <motion.section 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 bg-transparent"
+          className="text-center mb-3 bg-inherit"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Projects Showcase</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-3xl text-black md:text-3xl font-medium mb-2">Project Showcase</h1>
+          <p className="text-sm text-gray-600 max-w-3xl mx-auto">
             Explore innovative AI projects built by our community members to solve real-world problems.
           </p>
         </motion.section>
         
         {/* Featured Project */}
-        <section className="mb-16 bg-transparent">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Featured Project</h2>
-          </div>
+        <section className="mb-16 pt-0 bg-inherit">
+            <h2 className="text-xl font-semibold p-4 mb-4">Featured Project</h2>
           <FeaturedProject project={featuredProject} />
         </section>
         

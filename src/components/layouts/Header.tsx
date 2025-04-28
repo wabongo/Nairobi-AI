@@ -43,13 +43,11 @@ const Header = () => {
   const { currentPage, pageTheme } = useSelector((state: RootState) => state.navigation);
 
   const navItems: NavItem[] = [
-    // { to: "/", label: "Home", icon: <Home className="h-5 w-5 mr-3" /> },
     { to: "/events", label: "Events", icon: <Calendar className="h-5 w-5 mr-3" /> },
+    { to: "/forums", label: "Forum", icon: <MessageSquare className="h-5 w-5 mr-3" /> },
     { to: "/resources", label: "Resources", icon: <BookOpen className="h-5 w-5 mr-3" /> },
     { to: "/projects", label: "Projects", icon: <FolderGit2 className="h-5 w-5 mr-3" /> },
     { to: "/about", label: "About", icon: <BookOpen className="h-5 w-5 mr-3" /> },
-    { to: "/forums", label: "Forums", icon: <MessageSquare className="h-5 w-5 mr-3" /> },
-    // { to: "/jobs", label: "Jobs", icon: <Briefcase className="h-5 w-5 mr-3" /> },
   ];
 
   useEffect(() => {
@@ -143,7 +141,7 @@ const Header = () => {
           >
             <Link
               to="/login"
-              className="group relative overflow-hidden text-base px-8 py-4 rounded-full font-medium bg-black hover:bg-black/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
+              className="group relative overflow-hidden text-base px-8 py-4 rounded-full font-medium bg-black hover:bg-black/90 text-white transition-all duration-300"
             >
               Sign In
             </Link>

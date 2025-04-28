@@ -34,7 +34,7 @@ const CallToAction = ({ onSectionChange }: CallToActionProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-24 min-h-[80vh] overflow-hidden bg-[#FFE4B5]"
+      className="relative py-20 mt-0 min-h-[80vh] overflow-hidden bg-[#FFE4B5]"
     >
       <div className="absolute inset-0 overflow-hidden">
         {/* Decorative elements */}

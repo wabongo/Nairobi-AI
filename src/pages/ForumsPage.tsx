@@ -32,7 +32,7 @@ const threads = [
     views: 582,
     author: {
       name: 'Amina Kiptoo',
-      avatar: 'https://randomuser.me/api/portraits/women/65.jpg'
+      avatar: 'https://img.freepik.com/free-photo/artistic-blurry-colorful-wallpaper-background_58702-9941.jpg?ga=GA1.1.441311296.1745841009&semt=ais_hybrid&w=740'
     },
     lastActivity: '2h ago',
     trending: true
@@ -46,7 +46,7 @@ const threads = [
     views: 1123,
     author: {
       name: 'Kigen Otieno',
-      avatar: 'https://randomuser.me/api/portraits/men/25.jpg'
+      avatar: 'https://img.freepik.com/free-photo/gray-abstract-wireframe-technology-background_53876-101941.jpg?ga=GA1.1.441311296.1745841009&semt=ais_hybrid&w=740'
     },
     lastActivity: '5h ago',
     trending: true
@@ -60,7 +60,7 @@ const threads = [
     views: 214,
     author: {
       name: 'Moderator Jane',
-      avatar: 'https://randomuser.me/api/portraits/women/15.jpg'
+      avatar: 'https://img.freepik.com/free-photo/grunge-paint-background_1409-1337.jpg?ga=GA1.1.441311296.1745841009&semt=ais_hybrid&w=740'
     },
     lastActivity: '1d ago',
     trending: false
@@ -74,7 +74,7 @@ const threads = [
     views: 432,
     author: {
       name: 'WildAI HR',
-      avatar: 'https://randomuser.me/api/portraits/men/45.jpg'
+      avatar: 'https://img.freepik.com/free-photo/abstract-colorful-splash-3d-background-generative-ai-background_60438-2509.jpg?ga=GA1.1.441311296.1745841009&semt=ais_hybrid&w=740'
     },
     lastActivity: '8h ago',
     trending: false
@@ -88,7 +88,7 @@ const threads = [
     views: 788,
     author: {
       name: 'Prof. Wanjiku',
-      avatar: 'https://randomuser.me/api/portraits/women/75.jpg'
+      avatar: 'https://img.freepik.com/free-photo/3d-vertical-background-with-abstract-style_23-2150641319.jpg?ga=GA1.1.441311296.1745841009&semt=ais_hybrid&w=740'
     },
     lastActivity: '3h ago',
     trending: true
@@ -97,7 +97,7 @@ const threads = [
 
 // Category Sidebar Component
 const CategorySidebar = ({ current, onSelect }: { current: string; onSelect: (cat: string) => void }) => (
-  <aside className="hidden lg:block w-72 pr-6 border-r border-gray-100 sticky top-20 self-start h-screen overflow-y-auto pb-20 font-sans">
+  <aside className="hidden lg:block w-72 pr-6 border-gray-100 sticky top-20 self-start h-screen overflow-y-auto pb-20 font-sans">
     <h2 className="text-sm font-semibold text-gray-900 mb-4">Categories</h2>
     <ul className="space-y-1">
       <li>
@@ -134,7 +134,7 @@ const ThreadCard = ({ thread }: { thread: typeof threads[0] }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
     viewport={{ once: true }}
-    className="bg-white border-b border-gray-100 px-5 py-4 flex flex-col gap-3 hover:bg-gray-50/50 transition-colors duration-200"
+    className="mb-3 bg-white px-5 py-4 flex flex-col gap-3 hover:bg-gray-100 rounded-3xl hover:shadow-sm transition-colors duration-200"
   >
     <div className="flex items-start gap-3">
       <img src={thread.author.avatar} alt={thread.author.name} className="w-10 h-10 rounded-full object-cover" />
@@ -205,14 +205,14 @@ const ForumsPage = () => {
   }, [selectedCategory, query]);
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 flex flex-col lg:flex-row gap-0 mt-20 pt-10 font-sans w-full pl-10 pr-10">
+    <main className="min-h-screen bg-white text-gray-900 flex flex-col lg:flex-row gap-0 mt-20 pt-10 font-sans w-full pl-10 pr-10 pb-10">
       {/* Sidebar */}
       <CategorySidebar current={selectedCategory} onSelect={setSelectedCategory} />
 
       {/* Main content */}
-      <section className="flex-1 border-l border-gray-100 w-full bg-transparent">
+      <section className="flex-1 border-gray-100 w-full bg-transparent">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-3 border-gray-100">
           <div>
             <h1 className="text-xl font-semibold text-black font-sora">Forums</h1>
           </div>
@@ -226,7 +226,7 @@ const ForumsPage = () => {
         </div>
 
         {/* Search & filter */}
-        <div className="px-5 py-3 border-b border-gray-100">
+        <div className="px-5 pt-3 pb-5 border-gray-100">
           <div className="relative">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -240,7 +240,7 @@ const ForumsPage = () => {
         </div>
 
         {/* Threads list */}
-        <div className="divide-y divide-gray-100 bg-white">
+        <div className="bg-white">
           {filteredThreads.length ? (
             filteredThreads.map((thread) => <ThreadCard key={thread.id} thread={thread} />)
           ) : (

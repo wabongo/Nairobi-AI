@@ -20,7 +20,7 @@ const RootLayout = () => {
 
       <ScrollToTop/>
       
-      <main className="flex-grow relative mb-8">
+      <main className="flex-grow relative">
         
         {/* Main content with subtle fade-in animation */}
         <div 

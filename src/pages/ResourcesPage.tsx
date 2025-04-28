@@ -275,7 +275,7 @@ const ResourcesPage = () => {
     <main className="responsive-container mt-16">
       <div className="space-y-12 mt-20 mb-20 bg-transparent">
         {/* Search and Filter */}
-        <section className="mb-8 bg-transparent">
+        <section className="mb-4 pb-2 bg-transparent">
           <div className="flex flex-col gap-4 items-start">
             <div className="relative w-full md:w-1/2 p-2">
               <input 
@@ -283,7 +283,7 @@ const ResourcesPage = () => {
                 placeholder="Search articles..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-3 pl-10 pr-4 bg-gray-100 rounded-2xl border border-gray-200 focus:outline-none focus:ring-0 focus:bg-white focus:ring-blue-100"
+                className="text-gray-900 w-full py-3 pl-10 pr-4 bg-gray-200 rounded-2xl border border-gray-200 focus:outline-none focus:ring-0 focus:bg-white focus:ring-blue-100"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             </div>
@@ -308,7 +308,7 @@ const ResourcesPage = () => {
         
         {/* Featured Article */}
         {featuredArticle && (
-          <section className="mb-16 bg-transparent">
+          <section className="mb-10 pt-1 bg-inherit">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-bold">Featured Story</h2>
             </div>

@@ -138,7 +138,7 @@ const EventsPage: React.FC = () => {
 
   return (
     <main className="responsive-container mt-16">
-      <div className="space-y-8 mt-20">
+      <div className="space-y-8 mt-20 mb-20">
         {/* Hero Section */}
         <motion.section 
           initial={{ opacity: 0, y: 20 }}

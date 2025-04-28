@@ -28,7 +28,7 @@ const HomePage = () => {
         <Hero onSectionChange={handleSectionChange} />
       </SmoothScrollSection>
 
-      {/* Community Section (inserted after Hero) */}
+      {/* Community Section */}
       <SmoothScrollSection id="community-main">
         <Hatch />
       </SmoothScrollSection>
